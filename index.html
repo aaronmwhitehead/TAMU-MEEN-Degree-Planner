@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NEW FLOWCHART</title>
+	<script src="data.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+	<div id="semesters">
+		<ul id="semester10" class="semester"></ul>
+		<ul id="semester20" class="semester"></ul>
+		<ul id="semester30" class="semester"></ul>
+		<ul id="semester40" class="semester"></ul>
+		<ul id="semester50" class="semester"></ul>
+		<ul id="semester60" class="semester"></ul>
+		<ul id="semester70" class="semester"></ul>
+		<ul id="semester80" class="semester"></ul>
+		<ul id="semester90" class="semester"></ul>
+		<ul id="semester100" class="semester"></ul>
+	</div>
+
+	<button class="button" id="addCourse" onclick="showDialog()" style="vertical-align:middle"><span>Add Course</span>
+	</button>
+
+	<button class="button" id="checkCourses" onclick="checkCourses()" style="vertical-align:middle"><span>Check Courses</span>
+	</button>
+
+	<div id="formbox">
+		<form>
+			<i class="fa fa-times" id="close" onclick="hideDialog()" aria-hidden="true"></i>
+			<br>
+			Course Name:
+			<br>
+			<input type="text"  name="coursename">
+			<br>
+			Hours:
+			<br>
+			<input type="text" name="hours">
+			<br><br>
+			<input type="button" class="button" id="addCourseSubmit" onclick="addCourse(); hideDialog()" value="Submit">
+		</form>
+	</div>
+
+	<div class="addSemester">
+		<button onclick="toggleSelect(); hideDialog()" class="button" id="addSemester">		Add Semester</button>
+		<div id="dropdown" class="dropdown-content">
+			<p id="Summer 1" onclick="addSemester(event)">Summer 1</p>
+			<p id="Summer 2" onclick="addSemester(event)">Summer 2</p>
+			<p id="Summer 3" onclick="addSemester(event)">Summer 3</p>
+			<p id="Summer 4" onclick="addSemester(event)">Summer 4</p>
+		</div>
+	</div>
+
+	<div id="key">
+		<p style="position: absolute; left: 140px">Key</p>
+		<div>
+			<div class="key-graphic" style=" background: radial-gradient(white,#104554); top: 52px;"></div>
+			<p class="key-text"> 1st Year Engineering Coursework</p>
+		</div>
+		<div>
+			<div class="key-graphic" style="background: #F4AF00; top: 86px"></div>
+			<p class="key-text">University Core Curriculum (UCC) <br> general education electives</p>
+		</div>
+		<div>
+			<div class="key-graphic" style=" position: absolute; background: #1D3362; top: 138px;  border-radius: 8px"></div>
+			<p class="key-text">Extra courses; not required in <br> Mechanical Engineering degree</p>
+		</div>
+		<div>
+			<div class="key-graphic" style="top: 188px; border: solid #998031 2px; background: white; border-radius: 8px"></div>
+			<p class="key-text">Required Prerequisites</p>
+		</div>
+		<div>
+			<div class="key-graphic" style=" position: absolute; top: 221px; border: solid #5B447A 2px; background: white; border-radius: 8px"></div>
+			<p class="key-text">Preceded or accompanied by; <br> Co-requisites</p>
+		</div>
+		<div>	
+			<div class="key-graphic" style="background: #EDDD9E; left: 25px; top: 274px; width: 20px; text-align: center; height: 20px; border: none; border-radius: 50%">3</div>
+			<p class="key-text">Number of course credits</p>
+		</div>
+	</div>
+	<div id="output"></div>
+	<script src="sketch.js"></script>
+</body>
+</html>
 
