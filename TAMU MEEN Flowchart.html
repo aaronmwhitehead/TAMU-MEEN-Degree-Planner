@@ -1,0 +1,1805 @@
+<!doctype html>
+<html lang="en">
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	  <title>TAMU Mechanical Engineering Degree Planner</title>
+
+	  <style>
+		  body
+		  {
+		  	background: #E7DED0;
+		  }
+			.course, #newCourse
+			{
+				display:inline-block;
+				border: 1px solid black;
+				font-weight: bold;
+				border-radius: 12px;
+			    	margin: 2px 2px 38px 2px;
+			   	padding: 2px;
+			    	font-size: .7em;
+			    	width: 105px;
+			    	float: left;
+				height:40px; 
+				text-align: center;
+				vertical-align: middle;
+			    	cursor: move;
+			    	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+			    	position: relative;
+			}
+
+			.course:hover, #newCourse:hover
+			{
+			  	border:1px solid white;
+			}
+
+			.semester 
+			{
+			    border: 1px solid black;
+			    width: 810px;
+			    list-style-type: none;
+			    margin: 5px;
+			    padding: 2px 0 0 0;
+			    transition: all 0.5s;
+			    position: relative;
+			}
+
+			.button, .button2, .dropbtn
+			{
+				border-radius: 2px;
+				background-color: #800000;
+				border: none;
+				color: #FFFFFF;
+				text-align: center;
+				font-size: 14px;
+				padding: 10px;
+				width: 282px;
+				transition: all 0.5s;
+				cursor: pointer;
+				margin: 2px;
+				position: absolute;
+				top: 15px;
+				left: 903px;
+				font-family: Times New Roman;
+			}	
+
+			.button span, .button2 span, .dropbtn span
+			{
+			  	cursor: pointer;
+			  	display: inline-block;
+			  	position: relative;
+			  	transition: 0.5s;
+			}
+
+			.button2 
+			{
+				width: 120px;
+				top: 520px;
+			}	
+
+			.dropbtn
+			{
+				width: 138px;
+				top: 520px;
+				left: 1047px;
+			}	
+
+			.course #hours 
+			{
+			    	visibility: visible;
+			    	width: 16px;
+			    	height: 15px;
+			    	background-color: #EDDD9E;
+			    	color: black;
+			    	text-align: center;
+			    	border-radius: 50%;
+			    	/* Position the tooltip */
+			    	position: relative;
+			    	top: -45px;
+			    	left: 95px;
+			    	transition: all 0.5s;
+			}
+
+			.course #prereqs, .course #coreqs
+			{
+			    	visibility: visible;
+			    	width: 99px;
+			    	height: 6px;
+			    	background-color: white;
+			    	border: solid #998031 3px;
+			    	color: #998031;
+			    	text-align: center;
+		   		border-radius: 5px;
+		   		font-size: 7px;
+		   		padding: 3px;
+		     	/* Position the tooltip */
+			    	transition: all 0.5s;
+			    	float: left;
+			    	position: relative;
+			    	top: -9px;
+			    	left: -3px;
+		    }
+
+		    .course #coreqs
+			{
+			    	background-color: white;
+			    	border: solid #5B447A 3px;
+			    	color: #5B447A;
+		    	}
+
+			#output
+			{
+			    	border: 1px solid #332c2c;
+			    	width: 270px;
+			    	min-height: 430px;
+			    	list-style-type: none;
+			    	margin: 5px;
+			    	padding: 2px 0 0 0;	 
+				position: absolute;
+				top: 67px;
+				left: 900px;
+				background-color: lightgrey;
+				font-size: .9em;
+				padding: 5px;
+				transition: all 0.5s;
+				z-index: 1;
+				color: red;
+				font-weight: bold; 
+				font-size: 15px; 
+			}
+
+			.hoursBox
+			{
+			    height: 45px;
+			    width: 75px;
+			    list-style-type: none;
+			    margin: 10px;
+			    position: relative;
+			    left: 810px;
+			    top: -25px;
+			    transition: all 0.5s;
+			    font-size: 22px;
+			    text-align: center;
+                font-weight: bold;
+			}
+
+			#hoursBox
+			{
+				position: absolute;
+				width: 70px;
+				height: 40px;
+				top: 20px;
+				left: 805px;
+			}
+
+			#hours
+			{
+				position: absolute;
+				width: 70px;
+				height: 40px;
+				top: 20px;
+				left: 830px;
+                font-size: 22p
+			}
+
+			.fa-info-circle
+			{
+				cursor: pointer;
+				position: absolute;
+				left: 5px;
+				opacity: .2;
+			}
+
+			.fa:hover
+			{
+				opacity: 1;
+				color: black;
+			}
+
+			.fa-times
+			{
+				cursor: pointer;
+			}
+
+			#formbox
+			{
+				visibility: hidden;
+				border: solid black 1px;
+				color: white;
+				font-size: 13px;
+				position: absolute;
+				height: 180px;
+				width: 200px;
+				top: 580px;
+				left: 905px;
+				background: #4F552A;
+				border-radius: 2px;
+			}
+
+			#formbox .fa-times{
+				position: absolute;
+				left: 10px;
+				top: 9px;
+			}
+
+			#queryA, #queryB
+			{
+				position: relative;
+				left: 5px;
+			}
+
+			.textbox
+			{
+				position: relative;
+				left: 5px;
+				width: 186px;
+			}
+
+			#submit
+			{
+				position: relative;
+				left: 5px;
+				background: #800000;
+				color: white;
+				border: solid 2px #800000;
+				cursor: pointer;
+				padding: 10px;
+				width: 90px;
+				border-radius: 3px;
+				font-size: 15px;
+				font-family: Times New Roman;
+			}
+
+			#newCourses
+			{
+				border: grey solid 2px;
+				position: absolute;
+				left: 1200px;
+				top: 345px;
+				width: 320px;
+				height: 210px;
+				border-radius: 10px;
+				background: #FFFFFFFF
+			}
+
+			.hours
+			{
+				visibility: visible;
+			    	width: 15px;
+			    	height: 15px;
+			    	background-color: #EDDD9E;
+			    	color: black;
+			    	text-align: center;
+			    	border-radius: 50%;
+			    	/* Position the tooltip */
+			    	position: relative;
+			    	top: -20px;
+			    	left: 95px;
+			    	transition: all 0.5s;
+			}
+
+			.dropbtn:hover, .dropbtn:focus {
+			    background-color: #800000;
+			}
+
+			.dropdown {
+			    position: relative;
+			    display: inline-block;
+			}
+
+			.dropdown-content {
+			    display: none;
+			    position: absolute;
+			    background-color: #8F8F8C;
+			    min-width: 140px;
+			    overflow: auto;
+			    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			    z-index: 1;
+			    left: 1050px;
+			    top: 558px;
+			}
+
+			.dropdown-content p {
+			    color: white;
+			    padding: 12px 16px;
+			    display: block;
+			}
+
+			.dropdown-content p:hover
+			{
+				background-color: #4F552A;
+				cursor: pointer;
+			}
+
+			.show {display:block;}
+
+			.popup {
+			    position: absolute;
+			    display: inline-block;
+			    cursor: pointer;
+			    -webkit-user-select: none;
+			    -moz-user-select: none;
+			    -ms-user-select: none;
+			    user-select: none;
+			    left: 5px;		
+			    cursor: auto;
+			}
+
+			/* The actual popup */
+			.popuptext {
+			    visibility: hidden;
+			    width: 405px;
+			    min-height: 160px;
+			    background-color: #8F8F8C;
+			    color: white;
+			    text-align: center;
+			    border-radius: 6px;
+			    padding: 8px 0;
+			    position: absolute;
+			    z-index: 2;
+			    left: 5px;
+			    top: -15px;
+
+			}
+
+			#hide-popup
+			{
+				position: absolute;
+				left:15px;
+				font-size: 20px;
+			}
+
+			.fix
+			{
+				height: 1px;
+				width: 1px;
+				/*background: #E7DED0;*/
+				background: black;
+			}
+
+			#key
+			{
+				height: 310px; 
+				width: 320px; 
+				background-color: white; 
+				position: absolute; 
+				left: 1200px; 
+				top: 20px;
+				border: solid 2px grey;
+				border-radius: 10px
+
+			}
+
+			.key-text
+			{
+				position: relative;
+				left: 70px;
+				top: 35px;
+			}
+
+			.key-graphic
+			{
+				border-radius: 7px; 
+				height: 13px; 
+				width: 50px; 
+				position: absolute; 
+				left: 8px; 
+				top: 17px; 
+				border: 1px solid black;
+			}
+
+			.core:hover
+			{
+				color: black;
+				cursor: pointer;
+			}
+
+			#pageContent
+			{
+				position: absolute;
+				left: 50px;
+			}
+
+			.year-name
+			{
+				position: absolute;
+				left: -80px;
+				top: -10px;
+				transform: rotate(-90deg);
+				-ms-transform: rotate(-90deg);
+				-webkit-transform: rotate(-90deg);
+				font-size: 40px;
+			}
+
+			#outputKathryn
+			{
+			    	width: 320px;
+			    	height: 20px;
+			    	list-style-type: none;
+			    	margin: 5px;
+			    	padding: 2px 0 0 0;	 
+				position: absolute;
+				left: 1190px;
+				top: 487px;
+				text-align: center;
+				font-size: .9em;
+				padding: 5px;
+				z-index: 1;
+			}
+
+			#remove
+			{
+				position: absolute;
+				left: 8px;
+				top: 8px;
+			}
+
+			#remove:hover
+			{
+				color: white;
+			}
+
+			#print
+			{
+				position: absolute;
+				top: 575px;
+				left: 1250px;
+				width: 320px;
+			}
+
+			#notes
+			{
+				position: absolute;
+				top: 625px;
+				left: 1250px;
+				width: 320px;
+				height: 320px;
+				font-family: Times New Roman;
+			}
+
+			#deleteCourse
+			{
+				position: absolute;
+				top: 2px;
+				left: 8px;
+			}
+
+			#deleteCourse:hover
+			{
+				color: black;
+			}
+          
+            #goodOutput
+            {
+                color: black;
+                font-size: 20px; 
+            }
+	  </style>
+
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+	</head>
+	<body onload="checkAllCourses(clicks)">
+		<div id="pageContent" class="pageContent">
+			<ul id="semester00" class="semester" style="
+				background-color: #332c2c; 
+				padding: 22px 0px 0px 0px;">
+
+				<div id="year0" class="year-name" style="
+				transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				-webkit-transform: rotate(0deg);
+				font-size: 12px;
+				left: 5px;
+				top: 5px;
+				color: white;
+				text-align: center;">
+				<a>
+					Place any classes you have AP or Dual Credit for in this box. <a style="text-decoration: underline; cursor: pointer; position: relative; left: 10px" onclick="openTestSite()">Click here for AP Test Equivalencies.</a> <a style="text-decoration: underline; position: relative; left: 25px; cursor: pointer;" onclick="openTrCoSite()">Click here for Dual Credit/Transfer Course Equivalencies.</a>
+				</a>
+				</div>
+
+				<div></div>
+			</ul>
+
+
+			<ul id="semester10" class="semester" >
+				
+			  <li id="ENGR111" data-coursedata='[{"prereqs":"","coreqs":"MATH151"}]' data-prereqs="" data-hours="2" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="ENGR111-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>ENGR 111 - Foundations of Engineering I</h2>
+				  		<h3>Credits 2. 1 Lecture Hour. 3 Lab Hours.</h3>
+						Introduction to the engineering profession, ethics, and disciplines; development of skills in teamwork, problem solving and design; other topics depending on the major include emphasis on computer applications and programming, visualization and CAD tools, introduction to electrical circuits, semiconductor devices, digital logic, communications and their application in systems; Newton's laws, unit conversions, statistics, computers, Excel; basic graphics skills; visualization and orthographic drawings. 
+						<h3>Prerequisites: MATH 150 or MATH 151, or concurrent enrollment; admission to the College of Engineering.</h3>
+				  	</span>
+			  	</div>
+			  	ENGR 111 <br> Foundations of <br> Engr. I 
+			  </li>
+
+			  <li id="MATH151" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="4" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MATH151-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MATH 151 Engineering Mathematics I</h2>
+				  		<h3>Credits 4. 3 Lecture Hours. 2 Lab Hours.</h3>
+				  		Engineering Mathematics I. Rectangular coordinates, vectors, analytic geometry, functions, limits, derivatives of functions, applications, integration, computer algebra. MATH 171 designed to be a more demanding version of this course. No credit will be given for more than one of MATH 131, MATH 142, MATH 147, MATH 151 and MATH 171. 
+				  		<h3>Prerequisite: MATH 150 or equivalent or acceptable score on TAMU Math Placement Exam.</h3>
+				  	</span>
+			  	</div>
+			  	MATH 151 <br> Engineering <br> Math I
+			  </li>
+
+			  <li id="PHYS218" data-coursedata='[{"prereqs":"","coreqs":"MATH151"}]' data-prereqs="" data-hours="4" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="PHYS218-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>PHYS 218 Mechanics</h2>
+				  		<h3>Credits 4. 3 Lecture Hours. 3 Lab Hours.</h3>
+				  	    Mechanics. Mechanics for students in science and engineering. 
+				  		<h3>Prerequisite: MATH 151 or MATH 171 or registration therein.</h3>
+				  	</span>
+			  	</div>
+			  	PHYS 218 <br> Mechanics <br> <br>
+			  </li>
+
+			  <li id="ENGL104" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="ENGL104-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>ENGL 104 Composition and Rhetoric</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Composition and Rhetoric. Focus on referential and persuasive researched essays through the development of analytical reading ability, critical thinking and library research skills; for freshman and sophomore students only.
+				  		<h3></h3>
+				  	</span>
+			  	</div>
+			  	ENGL 104 <br> Composition and <br> Rhetoric
+			  </li>
+
+			  <li id="UCC1" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: #F4AF00">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="UCC1-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>UCC Elective Requirements</h2>
+				  		<h3>
+				  		<ul style="text-align: left">
+				  			<li>POLS 206, 207</li>
+				  			<li>6 credits of American History</li>
+				  			<li>3 credits of Creative Arts</li>
+				  			<li>3 credits of Social/Behavoiral Sciences</li>
+				  		</ul> 
+				  		<br>
+				  		6 credits of International, Cultural Diversity (ICD) must be taken and can be fulfilled by these UCC electives
+				  		</h3>
+				  		<h2>
+				  			<div style="text-decoration: underline" class="core" onclick="openCoreWindow()" >core.tamu.edu</div>
+				  		</h2>
+				  	</span>
+			  	</div>
+			  	UCC Elective <br> <br> <br>
+			  </li>
+				<div> </div>
+			</ul>
+			 
+			<ul id="semester20" class="semester">
+			  <li id="ENGR112" data-coursedata='[{"prereqs":"ENGR111,MATH151","coreqs":""}]' data-prereqs="" data-hours="2" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="ENGR112-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>ENGR 112 Foundations of Engineering II</h2>
+				  		<h3>Credits 2. 1 Lecture Hour. 3 Lab Hours.</h3>
+				  		Continuation of ENGR 111. Topics include, depending on the major, emphasis on computer applications and programming and solids modeling using CAD tools or other software; fundamentals of engineering science; advanced graphic skills. 
+				  		<h3>Prerequisite: ENGR 111; MATH 151 or concurrent enrollment; admission to the College of Engineering.</h3>
+				  	</span>
+			  	</div>
+			  	ENGR 112 <br> Foundations of <br> Engr. II
+			  </li>
+
+			  <li id="MATH152" data-coursedata='[{"prereqs":"MATH151","coreqs":""}]' data-prereqs="" data-hours="4" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MATH152-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MATH 152 Engineering Mathematics II</h2>
+				  		<h3>Credits 4. 3 Lecture Hours. 2 Lab Hours.</h3>
+				  		Engineering Mathematics II. Differentiation and integration techniques and their applications (area, volumes, work), improper integrals, approximate integration, analytic geometry, vectors, infinite series, power series, Taylor series, computer algebra. MATH 172 designed to be a more demanding version of this course. No credit will be given for more than one of MATH 148, MATH 152 and MATH 172. 
+				  		<h3>Prerequisite: MATH 151 or equivalent.</h3>
+				  	</span>
+			  	</div>
+			  	MATH 152 <br> Engineering <br> Math II
+			  </li>
+
+			  <li id="PHYS208" data-coursedata='[{"prereqs":"PHYS218","coreqs":"MATH152"}]' data-prereqs="" data-hours="4" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="PHYS208-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>PHYS 208 Electricity and Optics</h2>
+				  		<h3>Credits 4. 3 Lecture Hours. 3 Lab Hours.</h3>
+				  		Electricity and Optics. Continuation of PHYS 218. Electricity, magnetism, and introduction to optics. Primarily for students in science and engineering. 
+				  		<h3>Prerequisites: PHYS 218; MATH 152 or MATH 172 or registration therein.</h3>
+				  	</span>
+			  	</div>
+			  	PHYS 208 <br> Electricity and <br> Optics
+			  </li>
+
+			  <li id="CHEM107" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="4" data-meenRestriction="no" class="course" style="background: radial-gradient(white,#104554)">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="CHEM107-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>CHEM 107 General Chemistry for Engineering Students</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Introduction to important concepts and principles of chemistry; emphasis on areas considered most relevant in an engineering context; practical applications of chemical principles in engineering and technology. Students completing CHEM 107 and changing majors to curricula requiring CHEM 101 and CHEM 102 may substitute CHEM 107 for CHEM 101. Students may not receive credit for both CHEM 107 and CHEM 101. 
+				  		<h3>Prerequisite: Concurrent enrollment in CHEM 117.</h3>
+				  	</span>
+			  	</div>
+			  	CHEM 107/117 <br> Gen. Chem. for <br> Engineers/Lab
+			  </li>
+
+			  <li id="UCC2" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: #F4AF00">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="UCC2-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>UCC Elective Requirements</h2>
+				  		<h3>
+				  		<ul style="text-align: left">
+				  			<li>POLS 206, 207</li>
+				  			<li>6 credits of American History</li>
+				  			<li>3 credits of Creative Arts</li>
+				  			<li>3 credits of Social/Behavoiral Sciences</li>
+				  		</ul> 
+				  		<br>
+				  		6 credits of International, Cultural Diversity (ICD) must be taken and can be fulfilled by these UCC electives
+				  		</h3>
+				  		<h2>
+				  			<div style="text-decoration: underline" class="core" onclick="openCoreWindow()"">core.tamu.edu</div>
+				  		</h2>
+				  	</span>
+			  	</div>
+			  	UCC Elective <br> <br> <br> 
+			  </li>
+			  <div id="year1" class="year-name">Year 1</div>
+			</ul>
+
+			<ul id="semester30" class="semester">
+				
+			  <li id="MATH251" data-coursedata='[{"prereqs":"MATH152","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MATH251-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MATH 251 Engineering Mathematics III</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Vector algebra, calculus of functions of several variables, partial derivatives, directional derivatives, gradient, multiple integration, line and surface integrals, Green's and Stokes' theorems. MATH 221 designed to be a more demanding version of this course. No credit will be given for more than one of MATH 221, MATH 251 and MATH 253. 
+				  		<h3>Prerequisite: MATH 148, MATH 152, or MATH 172.</h3>
+				  	</span>
+			  	</div>
+			  	MATH 251 <br> Engineering <br> Math III
+			  </li>
+
+			  <li id="MEEN225" data-coursedata='[{"prereqs":"PHYS218","coreqs":"MATH251"}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN225-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 225 Engineering Mechanics</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 2 Lab Hours</h3>
+						Application of the laws of classical mechanics to simplified, plausibly real world problems or interest to mechanical engineering, including the analysis of cables, frames, trusses, beams, machines and mechanisms. 
+
+				  		<h3>Prerequisites: Mechanical engineering major; MATH 251 or MATH 253 or registration therein; PHYS 218.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 225 <br> Engineering <br> Mechanics
+			  </li>
+
+			  <li id="MEEN222" data-coursedata='[{"prereqs":"PHYS218,CHEM107","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN222-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 222/MSEN 222 Materials Science</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Mechanical, optical, thermal, magnetic and electrical properties of solids; differences in properties of metals, polymers, ceramics and composite materials in terms of bonding and crystal structure. 
+				  		<h3>Prerequisites: CHEM 102, or CHEM 104 and CHEM 114, or CHEM 107 and CHEM 117; PHYS 218. </h3>
+				  	</span>
+			  	</div>
+			  	MEEN 222 <br> Materials <br> Science
+			  </li>
+
+			  <li id="MEEN210" data-coursedata='[{"prereqs":"ENGR111","coreqs":""}]' data-prereqs="" data-hours="2" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN210-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 210 Geometric Modeling for Mechanical Design</h2>
+				  		<h3>Credits 2. 1 Lecture Hour. 2 Lab Hours.</h3>
+				  		Foundations of geometric modeling as applied to mechanical design through use of modern computer-aided design (CAD) and physical prototyping tools; basics of systematic design methodology; geometric visualization concepts: multiview orthographic, isometric, oblique, perspective; three-dimensional representations, surface and solid modeling; dimensioning and tolerancing; rapid prototyping using 3D printing. 
+				  		<h3>Prerequisites: Mechanical engineering major; ENGR 111.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 210 <br> Modeling for <br> Mech. Design
+			  </li>
+
+			  <li id="UCC3" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: #F4AF00">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="UCC3-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>UCC Elective Requirements</h2>
+				  		<h3>
+				  		<ul style="text-align: left">
+				  			<li>POLS 206, 207</li>
+				  			<li>6 credits of American History</li>
+				  			<li>3 credits of Creative Arts</li>
+				  			<li>3 credits of Social/Behavoiral Sciences</li>
+				  		</ul> 
+				  		<br>
+				  		6 credits of International, Cultural Diversity (ICD) must be taken and can be fulfilled by these UCC electives
+				  		</h3>
+				  		<h2>
+				  			<div style="text-decoration: underline" class="core" onclick="openCoreWindow()"">core.tamu.edu</div>
+				  		</h2>
+				  	</span>
+			  	</div>
+			  	UCC Elective <br> <br> <br> 
+			  </li>
+
+			  <li id="COMM205" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: #F4AF00">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="COMM205-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>COMM 205/ENGL 203/ENGL 210</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Communication elective.
+				  	</span>
+			  	</div>
+			  	COMM 205 <br> ENGL 203 or <br> 210
+			  </li>
+				<div> </div>
+			</ul>
+			 
+			<ul id="semester40" class="semester">
+				
+			  <li id="MATH308" data-coursedata='[{"prereqs":"MATH251","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MATH308-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MATH 308 Differential Equations</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Ordinary differential equations, solutions in series, solutions using Laplace transforms, systems of differential equations. 
+				  		<h3>Prerequisites: MATH 221, MATH 251, or MATH 253, or concurrent enrollment; knowledge of computer algebra system.</h3>
+				  	</span>
+			  	</div>
+			  	MATH 308 <br> Differential <br> Equations
+			  </li>
+
+			  <li id="ECEN215" data-coursedata='[{"prereqs":"PHYS208","coreqs":"MATH308"}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="ECEN215-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>ECEN 215 Principles of Electrical Engineering</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 2 Lab Hours.</h3>
+				  		Fundamentals of electric circuit analysis and introduction to electronics for engineering majors other than electrical and computer engineering. 
+				  		<h3>Prerequisites: MATH 251 and PHYS 208 with a grade of C or better.</h3>
+				  	</span>
+			  	</div>
+			  	ECEN 215 <br> Principles of <br> Electrical Engr.
+			  </li>
+
+			  <li id="CVEN305" data-coursedata='[{"prereqs":"MEEN225","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="CVEN305-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>CVEN 305 Mechanics of Materials</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Applications of conservation principles and stress/deformation relationships for continuous media to structural members; axially loaded members; thin-walled pressure vessels; torsional and flexural members; shear; moment; deflection of members; combined loadings; stability of columns; nonsymmetrical bending, shear center; indeterminate members; elastic foundations. 
+				  		<h3>Prerequisites: Grade of C or better in CVEN 221, MEEN 221 or MEEN 225.</h3>
+				  	</span>
+			  	</div>
+			  	CVEN 305 <br> Mechanics of <br> Materials
+			  </li>
+
+			  <li id="MEEN315" data-coursedata='[{"prereqs":"MEEN225,MATH251","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN315-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 315 Principles of Thermodynamics</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Theory and application of energy methods in engineering; conservation of mass and energy; energy transfer by heat, work and mass; thermodynamic properties; analysis of open and closed systems; the second law of thermodynamics and entropy; gas, vapor and refrigeration cycles. 
+				  		<h3>Prerequisites: MEEN 225; MATH 251 or MATH 253; junior or senior classification.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 315 <br> Principles of <br> Thermodynamcis
+			  </li>
+
+			  <li id="MEEN260" data-coursedata='[{"prereqs":"MEEN225","coreqs":"ECEN215,MEEN315,MATH308"}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN260-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 260 Mechanical Measurements</h2>
+				  		<h3>Credit 1. 3 Lab Hours.</h3>
+				  		Introduction to basic fluid mechanics instrumentation; experimental verification and reinforcement of the analytical concepts introduced in MEEN 344. 
+				  		<h3>Prerequisites: MEEN 260; MEEN 344 or registration therein.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 260 <br> Mechanical <br> Measurements
+			  </li>
+			  <div id="year2" class="year-name">Year 2</div>
+			</ul>
+
+			<ul id="semester50" class="semester">
+				
+			  <li id="MEEN357" data-coursedata='[{"prereqs":"ENGR112,MATH308","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN357-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 357 Engineering Analysis for Mechanical Engineers</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Practical foundation for the use of numerical methods to solve engineering problems: Introduction to Matlab, error estimation, Taylor series, solution of non-linear algebraic equations and linear simultaneous equations; numerical integration and differentiation; initial value and boundary value problems; finite difference methods for parabolic and elliptic partial differential equations. 
+				  		<h3>Prerequisites: ENGR 112 and MATH 308; MEEN 210 or concurrent enrollment.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 357 <br> Engr. Analysis <br> for Mech.
+			  </li>
+
+			  <li id="MEEN363" data-coursedata='[{"prereqs":"MEEN225,MATH308","coreqs":"MEEN357,CVEN305"}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN363-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 363 Dynamics and Vibrations</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 2 Lab Hours.</h3>
+				  		Dynamics and Vibration. Application of Newtonian and energy methods to model dynamic systems (particles and rigid bodies) with ordinary differential equations; solution of models using analytical and numerical approaches; interpreting solutions; linear vibrations. 
+				  		<h3>Prerequisites: MEEN 225; MATH 308; MEEN 357 or concurrent enrollment; CVEN 305 or concurrent enrollment.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 363 <br> Dynamcis and <br> Vibrations
+			  </li>
+
+			  <li id="MEEN360" data-coursedata='[{"prereqs":"MEEN222,MEEN260,CVEN305","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN360-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 360 Materials and Manufacturing Selection in Design</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Selecting materials and manufacturing processes in design; emphasis on material mechanical properties; microstructure production and control; manufacturing processes for producing various shapes for components and structures; use of design methodology. 
+				  		<h3>Prerequisites: MEEN 210, MEEN 222/MSEN 222, MEEN 260; CVEN 305; junior or senior classification.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 360 <br> Materials and <br> Manufacturing
+			  </li>
+
+			  <li id="MEEN361" data-coursedata='[{"prereqs":"MEEN222,MEEN260,CVEN305","coreqs":"MEEN360"}]' data-prereqs="" data-hours="1" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN361-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 361 Materials and Manufacturing in Design Laboratory</h2>
+				  		<h3>Credit 1. 3 Lab Hours.</h3>
+				  		Experiments in materials characterization and manufacturing processes; emphasis on material mechanical properties; microstructure production and control; manufacturing processes for producing various shapes for components and structures. 
+				  		<h3>Prerequisites: MEEN 222/MSEN 222, MEEN 260; CVEN 305; MEEN 360 or registration therein; junior or senior classification or approval of instructor.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 361 <br> Materials and <br> Mfg. Lab
+			  </li>
+
+			  <li id="MEEN344" data-coursedata='[{"prereqs":"MEEN225,MEEN315","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN344-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 344 Fluid Mechanics</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Application of laws of statics, buoyancy, stability, energy and momentum to behavior of ideal and real fluids; dimensional analysis and similitude and their application to flow through ducts and piping; lift and drag and related problems. 
+				  		<h3>Prerequisites: MEEN 225 and MEEN 315.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 344 <br> Fluid Mechanics <br> <br>
+			  </li>
+
+			  <li id="MEEN345" data-coursedata='[{"prereqs":"MEEN260","coreqs":"MEEN344"}]' data-prereqs="" data-hours="1" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN345-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 345 Fluid Mechanics Laboratory</h2>
+				  		<h3>Credit 1. 3 Lab Hours.</h3>
+				  		Introduction to basic fluid mechanics instrumentation; experimental verification and reinforcement of the analytical concepts introduced in MEEN 344. 
+				  		<h3>Prerequisites: MEEN 260; MEEN 344 or registration therein.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 345 <br> Fluid Mechanics <br> Lab
+			  </li>
+
+			  <li id="UCC4" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: #F4AF00">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="UCC4-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>UCC Elective Requirements</h2>
+				  		<h3>
+				  		<ul style="text-align: left">
+				  			<li>POLS 206, 207</li>
+				  			<li>6 credits of American History</li>
+				  			<li>3 credits of Creative Arts</li>
+				  			<li>3 credits of Social/Behavoiral Sciences</li>
+				  		</ul> 
+				  		<br>
+				  		6 credits of International, Cultural Diversity (ICD) must be taken and can be fulfilled by these UCC electives
+				  		</h3>
+				  		<h2>
+				  			<div style="text-decoration: underline" class="core" onclick="openCoreWindow()"">core.tamu.edu</div>
+				  		</h2>
+				  	</span>
+			  	</div>
+			  	UCC Elective <br> (ICD) <br> <br> 
+			  </li>
+				<div> </div>
+			</ul>
+			 
+			<ul id="semester60" class="semester">
+				
+			  <li id="MEEN368" data-coursedata='[{"prereqs":"CVEN305","coreqs":"MEEN357,MEEN360"}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN368-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 368 Solid Mechanics in Mechanical Design</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 2 Lab Hours.</h3>
+				  		Stress analysis of deformable bodies and mechanical elements; stress transformation; combined loading; failure modes; material failure theories; fracture and fatigue; deflections and instabilities; thick cylinders; curved beams; design of structural/mechanical members; design processes. 
+				  		<h3>Prerequisites: CVEN 305; MEEN 357 and MEEN 360 or registration therein; junior or senior classification.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 368 <br> Solid Mech. in <br> Mech. Design
+			  </li>
+
+			  <li id="MEEN461" data-coursedata='[{"prereqs":"MATH308,MEEN344","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN461-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 461 Heat Transfer</h2>
+				  		<h3>Credits 3. 3 Lecture Hours.</h3>
+				  		Heat transfer by conduction, convection and radiation: steady and transient conduction, forced and natural convection, and blackbody and gray body radiation; multi-mode heat transfer; boiling and condensation; heat exchangers. 
+				  		<h3>Prerequisites: MEEN 344; MATH 308.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 461 <br> Heat Transfer <br> <br> 
+			  </li>
+
+			  <li id="MEEN464" data-coursedata='[{"prereqs":"MEEN345","coreqs":"MEEN461"}]' data-prereqs="" data-hours="1" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN464-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 464 Heat Transfer Laboratory</h2>
+				  		<h3>Credit 1. 3 Lab Hours.</h3>
+				  		Basic measurement techniques in conduction, convection, and radiation heat transfer; experimental verification of theoretical and semi-empirical results; uncertainty analysis. 
+				  		<h3>Prerequisite: MEEN 345, MEEN 461 or registration therein.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 464 <br> Heat Transfer <br> Lab
+			  </li>
+
+			  <li id="MEEN364" data-coursedata='[{"prereqs":"ECEN215,MEEN363,MEEN260","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN364-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 364 Dynamic Systems and Controls</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 3 Lab Hours.</h3>
+				  		Mathematical modeling, analysis, measurement and control of dynamic systems; extensions of modeling techniques of MEEN 363 to other types of dynamic systems; introduction to feedback control, time and frequency domain analysis of control systems, stability, PID control, root locus; design and implementation of computer-based controllers in the lab. 
+				  		<h3>Prerequisites: MEEN 260 and MEEN 363; ECEN 215.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 364 <br> Dynamic Syst. <br> and Control
+			  </li>
+
+			  <li id="ISEN302" data-coursedata='[{"prereqs":"MATH152","coreqs":""}]' data-prereqs="" data-hours="2" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="ISEN302-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>ISEN 302 Economic Analysis of Engineering Projects</h2>
+				  		<h3>Credits 2. 2 Lecture Hours.</h3>
+				  		Principles of economic equivalence; time value of money; analysis of single and multiple investments; comparison of alternatives; capital recovery and after-tax analysis of economic projects. 
+				  		<h3>Prerequisite: MATH 152.</h3>
+				  	</span>
+			  	</div>
+			  	ISEN 302 <br> Economic Anly. <br> Engr. Project
+			  </li>
+
+			  <li id="MEEN381" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="1" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN381-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 381 Seminar</h2>
+				  		<h3>Credit 1. 2 Other Hours.</h3>
+				  		Presentations by practicing engineers and faculty addressing: effective communications, engineering practices, professional registration, ethics, career-long competence, contemporary issues, impact of technology on society and being informed; preparation of a resume, a lifelong learning plan, two papers, two oral presentations and complete an online assessment of the mechanical engineering program. 
+				  		<h3>Prerequisite: Upper-level classification in mechanical engineering.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 381 <br> Seminar <br> <br> 
+			  </li>
+
+			  <li id="UCC5" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: #F4AF00">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="UCC5-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>UCC Elective Requirements</h2>
+				  		<h3>
+				  		<ul style="text-align: left">
+				  			<li>POLS 206, 207</li>
+				  			<li>6 credits of American History</li>
+				  			<li>3 credits of Creative Arts</li>
+				  			<li>3 credits of Social/Behavoiral Sciences</li>
+				  		</ul> 
+				  		<br>
+				  		6 credits of International, Cultural Diversity (ICD) must be taken and can be fulfilled by these UCC electives
+				  		</h3>
+				  		<h2>
+				  			<div style="text-decoration: underline" class="core" onclick="openCoreWindow()"">core.tamu.edu</div>
+				  		</h2>
+				  	</span>
+			  	</div>
+			  	UCC Elective <br> (ICD) <br> <br> 
+			  </li>
+			  <div id="year3" class="year-name">Year 3</div>
+			</ul>
+
+			<ul id="semester70" class="semester">
+			  <li id="MEEN401" data-coursedata='[{"prereqs":"MEEN360,MEEN361,MEEN364 ,MEEN368,MEEN461","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN401-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 401 Introduction to Mechanical Engineering Design</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 3 Lab Hours.</h3>
+				  		The design innovation process; need definition, functional analysis, performance requirements and evaluation criteria, conceptual design evaluation, down-selected to an embodiment; introduction to systems and concurrent engineering; parametric and risk analysis, failure mode analysis, material selection, and manufacturability; cost and life cycle issues, project management. 
+				  		<h3>Prerequisites: MEEN 360, MEEN 361, MEEN 364, MEEN 368, MEEN 461.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 401 <br> Intro to Mech. <br> Engr. Dsn.
+			  </li>
+
+			  <li id="MEEN404" data-coursedata='[{"prereqs":"MEEN360,MEEN361,MEEN364 ,MEEN461","coreqs":"MEEN401"}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN404-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 404 Engineering Laboratory</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 3 Lab Hours.</h3>
+				  		Systematic design of experimental investigations; student teams identify topics and develop experiment designs including: establishing the need; functional decomposition; requirements; conducting the experiment; analyzing and interpreting the results and written and oral reports documenting the objectives, procedure, analysis, and results and conclusion of two or three experiments. 
+				  		<h3>Prerequisites: MEEN 260, MEEN 360, MEEN 361, MEEN 364 and MEEN 461; MEEN 401 or registration therein; junior or senior classification.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 404 <br> Engineering <br> Labratory
+			  </li>
+
+			  <li id="STEM1" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="STEM1-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN Stem</h2>
+				  		<h3>Credit 3. 3 Lecture Hours</h3>
+				  		<h3>Choose from 2 of the following 3 courses:</h3>
+				  		<h3 style="text-align: left">
+				  			<ul>
+				  				<li>MEEN 421 - Thermo-Fluids Analysis and Design
+				  					<br>
+				  					Prerequisites:  MEEN 461; MEEN 227; junior or senior classification.
+				  				</li>
+
+				  				<li>MEEN 431 – Advanced System Dynamics and Controls
+				  					<br>
+				  					Prerequisites: MEEN 364; junior or senior classification.
+				  				</li>
+
+				  				<li>MEEN 475 – Materials in Design
+				  					<br>
+				  					Prerequisites: CVEN 305; MEEN 360.
+				  				</li>
+				  			</ul>
+				  		</h3>
+				  		<div style="text-decoration: underline" class="core" onclick="openTechSite()">Click here for more info</div>
+				  		<br>
+				  	</span>
+			  	</div>
+			  	MEEN Stem <br> MEEN 421, 431, <br> or 475
+			  </li>
+
+			  <li id="TECH1" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="TECH1-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN Technical elective</h2>
+				  		<h3>Credit Minimum 3</h3>
+				  		<h3>This course might have prerequisites not checked by this flowchart</h3>
+				  		<h3>
+				  			<div style="text-decoration: underline" class="core" onclick="openTechSite()">Click here for more info</div>
+				  		</h3>
+				  	</span>
+			  	</div>
+			  	MEEN/Non- <br>Meen Technical <br> Elective
+			  </li>
+
+			  <li id="UCC6" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: #F4AF00">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="UCC6-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>UCC Elective Requirements</h2>
+				  		<h3>
+				  		<ul style="text-align: left">
+				  			<li>POLS 206, 207</li>
+				  			<li>6 credits of American History</li>
+				  			<li>3 credits of Creative Arts</li>
+				  			<li>3 credits of Social/Behavoiral Sciences</li>
+				  		</ul> 
+				  		<br>
+				  		6 credits of International, Cultural Diversity (ICD) must be taken and can be fulfilled by these UCC electives
+				  		</h3>
+				  		<h2>
+				  			<div style="text-decoration: underline" class="core" onclick="openCoreWindow()"">core.tamu.edu</div>
+				  		</h2>
+				  	</span>
+			  	</div>
+			  	UCC Elective <br> <br> <br> 
+			  </li>
+				<div> </div>
+			</ul>
+			 
+			<ul id="semester80" class="semester">
+				
+			  <li id="MEEN402" data-coursedata='[{"prereqs":"MEEN401","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="MEEN402-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN 402 Intermediate Design</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 3 Lab Hours.</h3>
+				  		Product detail design and development process including case studies; project management, marketing considerations, manufacturing, detailed design specifications; failure modes, application of codes and standards, selection of design margins; product (component) development guidelines; intellectual property, product liability and ethical responsibility. 
+				  		<h3>Prerequisites: MEEN 401; junior or senior classification.</h3>
+				  	</span>
+			  	</div>
+			  	MEEN 402 <br> Intermediate <br> Design
+			  </li>
+
+			  <li id="TECH2" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="no" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="TECH2-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN Technical elective</h2>
+				  		<h3>Credit Minimum 3</h3>
+				  		<h3>This course might have prerequisites not checked by this flowchart</h3>
+				  		<h3>
+				  			<div style="text-decoration: underline" class="core" onclick="openTechSite()">Click here for more info</div>
+				  		</h3>
+				  	</span>
+			  	</div>
+			  	MEEN <br> Technical <br> Elective
+			  </li>
+
+			  <li id="STEM2" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="yes" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="STEM2-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN Stem</h2>
+				  		<h3>Credit 3. 3 Lecture Hours</h3>
+				  		<h3>Choose from 2 of the following 3 courses:</h3>
+				  		<h3 style="text-align: left">
+				  			<ul>
+				  				<li>MEEN 421 - Thermo-Fluids Analysis and Design
+				  					<br>
+				  					Prerequisites:  MEEN 461; MEEN 227; junior or senior classification.
+				  				</li>
+
+				  				<li>MEEN 431 – Advanced System Dynamics and Controls
+				  					<br>
+				  					Prerequisites: MEEN 364; junior or senior classification.
+				  				</li>
+
+				  				<li>MEEN 475 – Materials in Design
+				  					<br>
+				  					Prerequisites: CVEN 305; MEEN 360.
+				  				</li>
+				  			</ul>
+				  		</h3>
+				  		<div style="text-decoration: underline" class="core" onclick="openTechSite()">Click here for more info</div>
+				  		<br>
+				  	</span>
+			  	</div>
+			  	MEEN Stem <br> MEEN 421, 431, <br> or 475
+			  </li>
+
+			  <li id="TECH3" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="1" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="TECH3-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>MEEN Technical elective</h2>
+				  		<h3>Credit Minimum 3</h3>
+				  		<h3>This course might have prerequisites not checked by this flowchart</h3>
+				  		<h3>
+				  			<div style="text-decoration: underline" class="core" onclick="openTechSite()">Click here for more info</div>
+				  		</h3>
+				  	</span>
+			  	</div>
+			  	MEEN/Non- <br> MEEN Tech <br> Elective
+			  </li>
+
+			  <li id="ENGR482" data-coursedata='[{"prereqs":"","coreqs":""}]' data-prereqs="" data-hours="3" data-meenRestriction="0" class="course" style="background-color: lightgrey">
+			  	<div class="popup"> 
+			  		<i class="fa fa-info-circle" aria-hidden="true" onclick="showPopup(event)"></i>
+				  	<span class="popuptext" id="ENGR482-info">
+				  		<i id="hide-popup" class="fa fa-times" onclick="hidePopup(event)" aria-hidden="true"></i>
+				  		<br>
+				  		<h2>ENGR 482/PHIL 482 Ethics and Engineering</h2>
+				  		<h3>Credits 3. 2 Lecture Hours. 2 Lab Hours.</h3>
+				  		Development of techniques of moral analysis and their application to ethical problems encountered by engineers, such as professional employee pageContents and whistle blowing; environmental issues; ethical aspects of safety, risk and liability and conflicts of interest; emphasis on developing the capacity for independent ethical analysis of real and hypothetical cases. 
+				  		<h3>Prerequisite: Junior classification.</h3>
+				  	</span>
+			  	</div>
+			  	ENGR 482 <br> Engineering <br> Ethics
+			  </li>
+			  <div id="year4" class="year-name">Year 4</div>
+			</ul>
+
+			<ul id="semester90" class="semester">
+				<div> </div>
+			</ul>
+
+			<ul id="semester100" class="semester">
+				<div id="year5" class="year-name">Year 5</div>
+			</ul>
+
+			<script>
+				var clicks = 0;
+			</script>
+
+			<button class="button" onclick="clicks++,checkAllCourses(clicks)" style="vertical-align:middle"><span>Check Courses </span>
+			</button>
+			<br>
+			<p id="output"></p>
+
+			<p id="outputKathryn"></p>
+			
+			<button2 id="button2" class="button2" onclick="showDialog()" style="vertical-align:middle"><span>Add Course </span>
+			</button2>
+
+			<div id="hours">
+				Hours
+			</div>
+
+			<div id="formbox">
+				<form>
+					<i class="fa fa-times" onclick="hideDialog()" aria-hidden="true"></i>
+					<br><br>
+					<div id="queryA">Course Name:</div>
+					<input class="textbox" type="text"  name="coursename">
+					<br><br>
+					<div id="queryB">Hours:</div>
+					<input class="textbox" type="text" name="hours">
+					<br><br>
+					<input id="submit" type="button" onclick="addCourse()" value="Submit">
+				</form>
+			</div>
+
+			<div class="addSemester">
+				<button onclick="toggleSelect(); hideDialog()" class="dropbtn">Add Semester</button>
+				<div id="dropdown" class="dropdown-content">
+					<p id="Summer 1" onclick="addSemester(event)">Summer 1</p>
+					<p id="Summer 2" onclick="addSemester(event)">Summer 2</p>
+					<p id="Summer 3" onclick="addSemester(event)">Summer 3</p>
+					<p id="Summer 4" onclick="addSemester(event)">Summer 4</p>
+				</div>
+			</div>
+
+			<div id="newCourses"></div>
+
+			<div id="key">
+				<p style="position: absolute; left: 140px">Key</p>
+				<div>
+					<div class="key-graphic" style=" background: radial-gradient(white,#104554); top: 52px;"></div>
+					<p class="key-text"> 1st Year Engineering Coursework</p>
+				</div>
+				<div>
+					<div class="key-graphic" style="background: #F4AF00; top: 86px"></div>
+					<p class="key-text">University Core Curriculum (UCC) <br> general education electives</p>
+				</div>
+				<div>
+					<div class="key-graphic" style=" position: absolute; background: #1D3362; top: 138px;  border-radius: 8px"></div>
+					<p class="key-text">Extra courses; not required in <br> Mechanical Engineering degree</p>
+				</div>
+				<div>
+					<div class="key-graphic" style="top: 188px; border: solid #998031 2px; background: white; border-radius: 8px"></div>
+					<p class="key-text">Required Prerequisites</p>
+				</div>
+				<div>
+					<div class="key-graphic" style=" position: absolute; top: 221px; border: solid #5B447A 2px; background: white; border-radius: 8px"></div>
+					<p class="key-text">Preceded or accompanied by; <br> Co-requisites</p>
+				</div>
+				<div>	
+					<div class="key-graphic" style="background: #EDDD9E; left: 25px; top: 274px; width: 20px; text-align: center; height: 20px; border: none; border-radius: 50%">3</div>
+					<p class="key-text">Number of course credits</p>
+				</div>
+			</div>
+		</div>
+
+		<input type="button" class="button" id="print" value="Print this page" onClick="window.print()">
+
+		<textarea id="notes">Type notes here</textarea>
+
+
+		<script>
+
+		 	$( function() {
+		    	$( ".semester" ).sortable({
+		      	connectWith: ".semester",
+		      	items: '> li',
+		      	revert: true
+		    	}).disableSelection();
+		  	} );
+
+		 	$( function() {
+		    	$( "#newCourses" ).sortable({
+		      	connectWith: ".semester",
+		      	items: '> li',
+		      	revert: true
+		    	}).disableSelection();
+		  	} );
+
+		 	setInterval(function grow(){
+				for(var i = 0; i < $(".semester").toArray().length; i++)
+				{
+					var elem = $(".semester").toArray()[i];
+					if(elem.children.length <= 9)
+					{
+						elem.style.height = "99px";
+					}
+					else if(elem.children.length <=16)
+					{
+						elem.style.height = "186px";
+					}
+					else if(elem.children.length <=23)
+					{
+						elem.style.height = "259.5px";
+					}
+					else
+					{	
+						elem.style.height = "346px";
+					}
+					if (document.getElementById("newCourses").children.length == 4)
+					{
+						document.getElementById("submit").disabled = true;
+					}
+					else
+					{
+						document.getElementById("submit").disabled = false;
+					}
+				}
+			}, 100);	
+
+
+		 	document.getElementById("outputKathryn").innerHTML += "TAMU Mechanical Engineering Flowchart created <br> and designed by Kathryn Hall and Aaron Whitehead.";
+
+		 	for(var i = 0; i < $('.course').length; i++)
+		 	{
+		 		// Hours for each course displayed in small circle
+		 		var courseHours = $('.course')[i].dataset.hours;
+		 		var node = document.createElement('DIV');
+		 		node.setAttribute("id","hours")
+		 		var textnode = document.createTextNode(courseHours);
+		 		node.appendChild(textnode);
+		 		document.getElementById($('.course')[i].getAttribute('id')).appendChild(node);
+
+
+		 		//Prereqs and Coreqs for bubbles underneath each course
+		 	 	var prereqs = $('#'+$('.course')[i].getAttribute("id")).data('coursedata')[0].prereqs;
+
+		 	 	if (prereqs!="" && prereqs.length < 30)
+		 	 	{	
+			 	 	var node1 = document.createElement('DIV');
+			 		node1.setAttribute("id","prereqs");
+					var textnode = document.createTextNode(prereqs);
+			 		node1.appendChild(textnode);
+			 		document.getElementById($('.course')[i].getAttribute('id')).appendChild(node1);
+			 	}
+
+			 	else if(prereqs != "" && prereqs.length > 30)
+			 	{
+			 		var node1 = document.createElement('DIV');
+			 		node1.setAttribute("id","prereqs");
+					var textnode = document.createTextNode(prereqs);
+					node1.style.height = "15px";
+			 		node1.appendChild(textnode);
+			 		document.getElementById($('.course')[i].getAttribute('id')).appendChild(node1);
+			 	}
+
+			 	var coreqs = $('#'+$('.course')[i].getAttribute("id")).data('coursedata')[0].coreqs;
+		 	 	if (coreqs!="")
+		 	 	{	
+			 	 	var node1 = document.createElement('DIV');
+			 		node1.setAttribute("id","coreqs");
+			 		var textnode = document.createTextNode(coreqs);
+			 		node1.appendChild(textnode);
+			 		document.getElementById($('.course')[i].getAttribute('id')).appendChild(node1);
+			 	}
+			 	//////////
+			}
+
+			function checkCourses(currentID)
+			{
+				var currentSemester = $('#'+currentID).parents().attr("id");
+				if(document.getElementById(currentID).dataset.prereqs == "")
+				{
+					//var a = $('#'+currentID).data('coursedata')[0].prereqs.split(" ");
+					var prereqs = $('#'+currentID).data('coursedata')[0].prereqs.split(",");
+					var coreqs = $('#'+currentID).data('coursedata')[0].coreqs.split(",");
+					var good = true;
+					for(var i = 0; i < prereqs.length; i++)
+					{
+						if (currentSemester <= $('#'+prereqs[i]).parents().attr("id"))
+						{
+							good = false;
+							document.getElementById("output").innerHTML +=prereqs[i] + " is a prereq for " + currentID + "." + "<br>" + "<br>";
+						}
+					}
+					for(var i = 0; i < coreqs.length; i++)
+					{
+						if (currentSemester < $('#'+coreqs[i]).parents().attr("id"))
+						{
+							good = false;
+							document.getElementById("output").innerHTML +=coreqs[i] + " is a coreq for " + currentID +  "." + "<br>" + "<br>";
+						}
+					}
+				}
+				return good;
+			}
+
+			function checkAllCourses(clicks)
+			{
+				$("#output").empty();
+				var good2 = true;
+				var good;
+				var fullTimeStudent = true;
+				semesterNum = $(".semester").toArray().length;
+				for (var i=1 ; i<semesterNum ; i++)
+				{
+					if (clicks!=0)
+						$('p', $(".semester").toArray()[i]).last().remove();
+					childrenNum = $(".semester").toArray()[i].children.length;
+					var hoursTotal = 0;
+					for (var j=0 ; j<childrenNum ; j++)
+					{
+						if ($(".semester").toArray()[i].children[j].getAttribute("class") == "course ui-sortable-handle")
+						{
+							good = checkCourses($(".semester").toArray()[i].children[j].getAttribute('id'));
+							console.log($(".semester").toArray()[i].children[j].dataset.meenRestriction);
+							if($(".semester").toArray()[i].children[j].dataset.meenRestriction=="yes" && $(".semester").toArray()[i].getAttribute("id")<"semester30")
+							{
+								good = false;
+								document.getElementById("output").innerHTML += currentID + " can not be taken freshman year." + "<br>" + "<br>";
+							}
+							if (good == false)
+								good2 = false;
+							hoursTotal = hoursTotal + ($(".semester").toArray()[i].children[j].dataset.hours)*1;
+						}
+					}
+					// if (hoursTotal < 12)
+					// 	fullTimeStudent = false;
+					var hoursBox = document.createElement("P");
+					hoursBox.innerHTML = hoursTotal + " Hrs.";
+					hoursBox.setAttribute("class","hoursBox");
+					hoursBox.setAttribute("id","hoursBox");
+					$(".semester").toArray()[i].appendChild(hoursBox);
+				}
+				if (good2 == true)
+                    var goodOutput = document.createElement("div");
+                    goodOutput.setAttribute("id", "goodOutput"); 
+                    goodOutput.innerHTML = "You have no co-/pre-requisite course violations. All courses should be allowed in these terms." + "<br> <br>" + "MEEN Stem courses, Technical Electives, and extra courses may have prerequisites not checked by this flowchart.  Check the respective websites or with your academic advisor for more details.";
+					document.getElementById("output").appendChild(goodOutput);
+				// if (fullTimeStudent == false)
+				// 	document.getElementById("output").innerHTML += "<br>" + "Reminder: You must take at least 12 hours a semester to be a full time student.";
+			}
+
+			function addCourse(){
+				var courseName = document.getElementsByName("coursename")[0].value;
+				var newCourseHours = document.getElementsByName("hours")[0].value;
+				var close = document.createElement("I");
+				close.setAttribute("class","fa fa-times");
+				close.setAttribute("id","deleteCourse");
+				close.setAttribute("onclick","deleteCourse(event)");
+
+				if(courseName.length > 15)
+				{
+					var warning = "<br>" + "Course name must be less than 15 characters."
+					document.getElementById("output").innerHTML += warning;
+				}
+
+				else if(courseName.length == 0)
+				{
+					var warning = "<br>" + "Please include the name of your course."
+					document.getElementById("output").innerHTML += warning;
+				}
+
+				else if(newCourseHours.length == 0)
+				{
+					var warning = "<br>" + "Please include the number of hours in your course."
+					document.getElementById("output").innerHTML += warning;
+				}
+
+				else if(isNaN(newCourseHours))
+				{
+					var warning = "<br>" + "Course hours must be a valid number";
+					document.getElementById("output").innerHTML += warning;
+				}
+
+				else
+				{
+					var course = document.createElement("LI");
+					course.dataset.hours = newCourseHours;
+					course.dataset.prereqs = " ";
+					course.setAttribute("class", "course ui-sortable-handle");
+					course.setAttribute("id", "newCourse" + courseName);
+					course.innerHTML = courseName;
+					course.style.background = "lightgrey";
+					document.getElementById("newCourses").appendChild(course);
+					var node = document.createElement('DIV');
+				 	node.setAttribute("class","hours")
+				 	var textnode = document.createTextNode(newCourseHours);
+				 	node.appendChild(textnode);
+				 	course.appendChild(node);
+				 	course.style.background = "#1D3362";
+				 	course.style.color = "white";
+				 	course.appendChild(close);
+				 }
+			}
+
+			function openCoreWindow(){
+				window.open("http://core.tamu.edu/");
+			}
+
+			function openTechSite() {
+				window.open("https://engineering.tamu.edu/media/4385400/stem-tech-electives-cat-139.pdf");
+			}
+
+			function openTestSite(){
+				window.open("http://testing.tamu.edu/TestingServices/media/Media/PDFs/AP.pdf");
+			}
+
+			function openTrCoSite(){
+				window.open("https://compass-ssb.tamu.edu/pls/PROD/bwxkwtes.P_TransEquivMain");
+			}
+
+			function toggleSelect(){
+				 document.getElementById("dropdown").classList.toggle("show");
+			}
+
+			function showDialog()
+			{
+				document.getElementById("formbox").style.visibility = "visible";
+			}
+
+			function hideDialog()
+			{
+				document.getElementById("formbox").style.visibility = "hidden";
+			}
+
+			function showPopup(event) {
+			    document.getElementById(event.target.nextElementSibling.getAttribute("id")).style.visibility = "visible";
+			}
+
+			function hidePopup(event)
+			{
+				document.getElementById(event.target.parentNode.getAttribute("id")).style.visibility = "hidden";
+			}
+
+			function addSemester(event)
+			{
+				var semesterID = document.getElementById(event.target.getAttribute("id"));
+				var semesters = document.getElementById("pageContent");
+				var close = document.createElement("I");
+				close.setAttribute("class", "fa fa-times");
+				close.setAttribute("id","remove");
+				close.setAttribute("onclick","removeSemester(event)");
+				newSemester = document.createElement("UL");
+
+				switch(semesterID.getAttribute("id")){
+					case "Summer 1":
+						newSemester.setAttribute("id", "semester25")
+						semesters.insertBefore(newSemester, document.getElementById("semester30"));
+						newSemester.appendChild(close);
+						break;
+
+					case "Summer 2":
+						newSemester.setAttribute("id", "semester45")
+						semesters.insertBefore(newSemester, document.getElementById("semester50"));
+						newSemester.appendChild(close);
+						break;
+
+					case "Summer 3":
+						newSemester.setAttribute("id", "semester65")
+						semesters.insertBefore(newSemester, document.getElementById("semester70"));
+						newSemester.appendChild(close);
+						break;
+
+					case "Summer 4":
+						newSemester.setAttribute("id", "semester85")
+						semesters.insertBefore(newSemester, document.getElementById("semester90"));
+						newSemester.appendChild(close);
+						break;
+				}
+
+				newSemester.setAttribute("class", "semester");
+				semesterID.style.visibility = "hidden";
+				//document.getElementById("dropdown").removeChild(semesterID);
+
+				$( ".semester" ).sortable({
+			      	connectWith: ".semester",
+			      	items: '> li',
+			      	revert: true
+			    	}).disableSelection();
+			}
+
+			window.onclick = function(event) {
+			  if (!event.target.matches('.dropbtn')) {
+
+			    var dropdowns = document.getElementsByClassName("dropdown-content");
+			    var i;
+			    for (i = 0; i < dropdowns.length; i++) {
+			      var openDropdown = dropdowns[i];
+			      if (openDropdown.classList.contains('show')) {
+			        openDropdown.classList.remove('show');
+			      }
+			    }
+			  }
+			}
+
+			function removeSemester(event) {
+				var currentSemester = event.target.parentNode;
+				switch(currentSemester.getAttribute("id"))
+				{
+					case "semester25":
+						document.getElementById("Summer 1").style.visibility = "visible";
+						document.getElementById("pageContent").removeChild(currentSemester);
+						break;
+
+					case "semester45":
+						document.getElementById("Summer 2").style.visibility = "visible";
+						document.getElementById("pageContent").removeChild(currentSemester);
+						break;
+
+					case "semester65":
+						document.getElementById("Summer 3").style.visibility = "visible";
+						document.getElementById("pageContent").removeChild(currentSemester);
+						break;
+
+					case "semester85":
+						document.getElementById("Summer 4").style.visibility = "visible";
+						document.getElementById("pageContent").removeChild(currentSemester);
+						break;
+				}
+			}
+
+			function deleteCourse(event)
+			{
+				var semester = event.target.parentNode.parentNode.getAttribute("id");
+				document.getElementById(semester).removeChild(event.target.parentNode);
+			}	
+			
+		</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+	MAKE EVERYTHING ON THE PAGE NOT A DROP TARGET
+
+	4.   Add a new course
+	2.   Add a new semester
+	1B.  Hours calculator
+	1Aa. Prereqs and coreqs underneath courses
+	FIRST FIX GROWING THING
+	1.   Name of semesters
+	END  Make it look nicer
+	Info onclick & what AP class counts
+	No MEEN classes in first 2 semesters (Error or just info message)
+	225 -> 221 and Project Class
+	5b.  Key on side
+	Drop down list (or type in) of UCC Electives, MEEN Stem, and Tech Elects
+	5a.  Check list of UCC Electives
+	Link to transfer course equivalency website
+	print pdf
+
+-->
+
+<!-- Known Bugs
+
+
+
+ -->
