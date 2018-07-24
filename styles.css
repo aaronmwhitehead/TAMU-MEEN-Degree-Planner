@@ -1,0 +1,275 @@
+body
+{
+	background: #E7DED0;
+}
+
+.course 
+{
+  	display:inline-block;
+	border: 1px solid black;
+	font-weight: bold;
+	border-radius: 12px;
+    margin: 2px 2px 38px 2px;
+    padding: 2px;
+    font-size: .7em;
+    width: 105px;
+    background: green;
+    float: left;
+	height:40px; 
+	text-align: center;
+	vertical-align: middle;
+    cursor: move;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+}
+		
+.semester 
+{
+    border: 1px solid black;
+    width: 880px;
+    min-height: 99px;
+    list-style-type: none;
+    margin: 5px;
+    padding: 2px 0 0 0;
+    transition: all 0.5s;
+    position: relative;
+}
+
+.hoursCircle
+{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #EDDD9E;
+    color: black;
+    text-align: center;
+    border-radius: 50%;
+    top: -5px;
+    left: 95px;
+}
+
+.prereqs
+{
+    display: inline-block;
+    visibility: visible;
+    width: 99px;
+    background-color: white;
+    border: solid #998031 3px;
+    color: #998031;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 7px;
+    padding: 3px;
+    transition: all 0.5s;
+    float: left;
+    position: absolute;
+    top: 48px;
+    left: -1px;
+}
+
+.coreqs
+{
+    display: inline-block;
+    visibility: visible;
+    width: 99px;
+    background-color: white;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 7px;
+    padding: 3px;
+    transition: all 0.5s;
+    float: left;
+    position: absolute;
+    border: solid #5B447A 3px;
+    color: #5B447A;
+    top: 48px;
+    left: -1px;
+}
+
+#info-icon
+{
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    opacity: .3;
+    cursor: pointer;
+}
+
+#info-icon:hover
+{
+    opacity: 1;
+}
+
+#close-icon
+{
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+    font-size: 20px;
+}
+
+#close-icon:hover
+{
+    color: black;
+}
+
+.button
+{
+    cursor: pointer;
+}
+
+#formbox
+{
+    visibility: hidden;
+    border: solid black 1px;
+    color: white;
+    font-size: 13px;
+    position: absolute;
+    height: 150px;
+    width: 200px;
+    top: 580px;
+    left: 1005px;
+    background: #4F552A; 
+}
+
+#close
+{
+    cursor: pointer;
+}
+
+#key
+{
+    height: 310px; 
+    width: 320px; 
+    background-color: white; 
+    position: absolute; 
+    left: 1300px; 
+    top: 20px;
+    border: solid 2px grey;
+    border-radius: 10px
+}
+
+.key-text
+{
+    position: relative;
+    left: 70px;
+    top: 35px;
+}
+
+.key-graphic
+{
+    border-radius: 7px; 
+    height: 13px; 
+    width: 50px; 
+    position: absolute; 
+    left: 8px; 
+    top: 17px; 
+    border: 1px solid black;
+}
+
+.descriptionBox
+{
+    min-height: 160px;
+    width: 405px;
+    background: #8F8F8C;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    left: 5px;
+    top: -15px;
+    visibility: hidden;
+}
+
+.button
+{
+    border-radius: 2px;
+    background-color: #800000;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    width: 284px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 2px;
+    position: absolute;
+    top: 15px;
+    left:1002px;
+    font-family: Arial;
+}
+
+#addSemester
+{
+    width: 140px;
+    top: 520px;
+    left: 1147px;
+}
+
+#addCourse
+{
+    width: 140px;
+    top: 520px;
+}
+
+#addCourseSubmit
+{
+    width: 90px;
+    left: 5px;
+    top: 100px;
+    transition: all 0s;
+}
+
+#output
+{
+    border: 1px solid #332c2c;
+    width: 270px;
+    min-height: 430px;
+    list-style-type: none;
+    margin: 5px;
+    padding: 2px 0 0 0;  
+    position: absolute;
+    top: 67px;
+    left: 1000px;
+    background-color: lightgrey;
+    font-size: .9em;
+    padding: 5px;
+    transition: all 0.5s;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #8F8F8C;
+    min-width: 140px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left: 1150px;
+    top: 558px;
+}
+
+.dropdown-content p {
+    color: white;
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown-content p:hover
+{
+    background-color: #4F552A;
+    cursor: pointer;
+}
+
+.show 
+{
+    display:block;
+}
