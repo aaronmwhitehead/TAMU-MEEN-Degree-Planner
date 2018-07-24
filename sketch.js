@@ -1,5 +1,5 @@
 //This function provides the sortable functionality of the semesters
-$( function() {
+$( function( ) {
 	$( ".semester" ).sortable({
 		connectWith: ".semester",
 		items: '> li',
